@@ -1,28 +1,62 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #cdc;
+  background-color: #dcd1dd;
 }
+
+
+
+
 
 a {
-  color: #0066dd;
+    font-weight:bold;
+    color: #2120ba;
+    text-decoration: none;
+}
+a:hover {
+    font-weight:bold;
+    color: #c22e1f;
+    cursor:pointer;
+    text-decoration: underline;
 }
 
 
-div.stream {
-	border: 1px solid black;
-	height: 200px;
-	margin: 10px;
-	overflow: auto;
-	width: 500px;
-}
+
+
+
 
 #content {
 	width: 800px;
 	margin: auto;
 }
 
-div.stream {
-	background-color: #fff;
-	padding: 10px;
+
+
+.logo{
+    height:120px;
+    background-image: url('file:///Users/ainglis/pycharmBase/drunk-sapn/public/images/drunk-sapn_logo.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+
+
+}
+
+
+#info_box{
+    margin-top:0px;
+    float:right;
+    font-size:10px;
+    color:#5C5858;
+    padding:4px 5px 5px 5px;
+    -webkit-border-radius:0px 0px 6px 6px;
+    -moz-border-radius:0px 0px 6px 6px;
+    border-radius:0px 0px 6px 6px;
+}
+
+.streaming{
+    margin-top:10px;
+    height: 40px;
+    font-size:35px;
+    border-color: black;
+    border
+
 }
