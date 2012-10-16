@@ -2,28 +2,15 @@
 var Transcript = Class.extend({
 	
 	init: function() {
-		// Module console
-		var title = $('<h1 />')
-			.text(localization[LOCALE].gui.transcript.CONTENT)
-			.appendTo($('#demo'))
-			
-		var contents = $('<div />')
-			.attr('id','contents')
-			.addClass('stream')
-			.appendTo($('#demo'));
-		this.contents = contents;
+		this.drinkWords = ["the","Wall Street","Iran","Iraq","Ayn Rand","Nuclear","Social Security","Ronald Reagan","Bin Laden","Al Queda","Health Care","Massachusetts","Main Street","Katrina","Gasoline","Community Organizer","SuperPAC","Afghanistan","Debt","Deficit","Values","Government","Taxes","Future","Bipartisan","Budget","Immigration","Energy","Dream Act","Outsource","Spending","States","Caymans","Allies","Natural","Clean","Governor","Insurance","Medicare","Florida","Texas","Ohio","Pennsylvania","Middle","Loophole","Seniors","Trillion","ObamaCare","RomneyCare","Promise","Military","Aid","Jobs","Big Bird","PBS","Biden","Ryan"];
+		this.tweakedWords = [];
+		this.drinkCounts = [];
+		this.drinkTotal = 0;
+		this.previousWord = "";
 		
-		var words = $('<div />')
-			.attr('id','words')
-			.addClass('stream')
-			.appendTo($('#demo'))
-		this.words = words;
-		
-		var lines = $('<div />')
-			.attr('id','lines')
-			.addClass('stream')
-			.appendTo($('#demo'))
-		this.lines = lines;
+		for(var x in this.drinkWords){
+			this.tweakedWords[x] = this.drinkWords[x].toLowerCase();
+		}
 	},
 	
 	receivePayload: function(payload) {
@@ -42,22 +29,51 @@ var Transcript = Class.extend({
 	},
 	
 	contentOut: function(data) {
-		var output = $('<span />')
-			.text(data.body)
-			.appendTo(this.contents);
-		this.contents.scrollTop(this.contents.prop("scrollHeight"));
 	},
 	lineOut: function(data) {
-		var output = $('<span />')
-			.text(data.body + " ")
-			.appendTo(this.lines);
-		this.lines.scrollTop(this.lines.prop("scrollHeight"));
 	},
 	wordOut: function(data) {
-		var output = $('<span />')
-			.text(data.body + " ")
-			.appendTo(this.words);
-		this.words.scrollTop(this.words.prop("scrollHeight"));
+		if(data.body.search(">>") != -1)
+			$("body").append("<br />");
+		
+		var newWord = data.body.toLowerCase;
+		var output = "";
+		
+		if(this.drinkWords.indexOf(data.body) != -1 || this.drinkWords.indexOf(this.previousWord + " " + data.body) != -1) {
+			console.log(++this.drinkTotal);
+		}
+		
+		// chance of swap
+		var swap = Math.floor(Math.random() * 125) < Math.min(this.drinkTotal, 100);
+		if(swap) {
+			var x = Math.floor(Math.random() * (data.body.length - 1))
+			var character = data.body.charAt(x);
+			data.body = data.body.substr(0, x) + data.body.charAt(x+1) + data.body.substr(x + 1);
+			data.body = data.body.substr(0, x + 1) + character + data.body.substr(x + 2);
+		}
+		
+		for(var x = 0; x < data.body.length ; ++x) {
+			var character = data.body.charAt(x);
+			output += character;
+			if(this.drinkTotal == 0)
+				continue;
+			
+			// chance of *hic*
+			var hic = Math.floor(Math.random() * 625) < Math.min(this.drinkTotal, 75);
+			// chance of slur
+			var slur = Math.floor(Math.random() * 750) < Math.min(this.drinkTotal, 125);
+			if(hic) {
+				output += "*hic*";
+			}
+			if(slur) {
+				output += character;
+				--x;
+			}
+		}
+		
+		$("body").append(output + " ");
+		
+		this.previousWord = newWord;
 	},
 	
 });
