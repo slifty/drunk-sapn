@@ -11,6 +11,11 @@ var Transcript = Class.extend({
 		for(var x in this.drinkWords){
 			this.tweakedWords[x] = this.drinkWords[x].toLowerCase();
 		}
+		
+		// Activate drink button
+		$("#drink_command").click(function() {
+			TRANSCRIPT.drink();
+		});
 	},
 	
 	receivePayload: function(payload) {
@@ -28,19 +33,41 @@ var Transcript = Class.extend({
 		}
 	},
 	
+	drink: function(trigger) {
+		this.drinkTotal++;
+		$("#drink_command").effect("highlight", {
+			duration: 2000
+		});
+		if(!trigger)
+			$("#drink_stats").append("Drank because you said so!");
+		else
+			$("#drink_stats").append("Drank because someone said '" + trigger + "'");
+		
+		$("#drink_stats").append(" (<strong>" + this.drinkTotal + "</strong> drinks had by all)");
+		
+		$("#drink_stats").append("<br />")
+			.scrollTop($("#drink_stats").prop("scrollHeight"));
+	},
+	
 	contentOut: function(data) {
 	},
 	lineOut: function(data) {
 	},
 	wordOut: function(data) {
 		if(data.body.search(">>") != -1)
-			$("body").append("<br />");
+			$("#transcript").append("<br /><br />");
 		
 		var newWord = data.body.toLowerCase;
 		var output = "";
 		
-		if(this.drinkWords.indexOf(data.body) != -1 || this.drinkWords.indexOf(this.previousWord + " " + data.body) != -1) {
-			console.log(++this.drinkTotal);
+		var shortTest = this.drinkWords.indexOf(data.body) != -1;
+		var longTest = this.drinkWords.indexOf(this.previousWord + " " + data.body) != -1;
+		
+		if(shortTest || longTest) {
+			if(shortTest)
+				this.drink(data.body);
+			if(longTest)
+				this.drink(this.previousWord + " " + data.body)
 		}
 		
 		// chance of swap
@@ -71,7 +98,8 @@ var Transcript = Class.extend({
 			}
 		}
 		
-		$("body").append(output + " ");
+		$("#transcript").append(output + " ")
+			.scrollTop($("#transcript").prop("scrollHeight"));
 		
 		this.previousWord = newWord;
 	},

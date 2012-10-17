@@ -45,6 +45,18 @@ exports.TranscriptContentOutPayload = function(body) {
 	};
 };
 
+exports.TranscriptDrinkOutPayload = function(trigger) {
+	this.trigger = trigger;
+	this.getPayload = function() {
+		return {
+			type: constants.COMMUNICATION_TRANSCRIPT_PAYLOAD_DRINK,
+			data: {
+				trigger: this.trigger
+			}
+		}
+	};
+};
+
 exports.TranscriptLineInPayload = function(body) {
 	this.body = body;
 	this.getPayload = function() {
@@ -92,3 +104,5 @@ exports.TranscriptWordOutPayload = function(body) {
 		}
 	};
 };
+
+

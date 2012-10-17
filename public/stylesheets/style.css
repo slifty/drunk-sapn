@@ -20,24 +20,28 @@ a:hover {
 }
 
 
+#drink_command {
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 24px;
+}
 
-
-
-
-#content {
-	width: 800px;
-	margin: auto;
+#drink_stats {
+	font-size: 10px;
+	height: 270px;
+	overflow:auto;
+	border: 1px solid black;
+	padding: 5px;
 }
 
 
-
-.logo{
+.logo {
     height:120px;
-    background-image: url('file:///Users/ainglis/pycharmBase/drunk-sapn/public/images/drunk-sapn_logo.png');
+    background-image: url('../images/drunk-sapn_logo.png');
     background-repeat: no-repeat;
     background-position: top center;
-
-
+	width: 300px;
+	padding-bottom: 20px;
 }
 
 
@@ -52,11 +56,11 @@ a:hover {
     border-radius:0px 0px 6px 6px;
 }
 
-.streaming{
-    margin-top:10px;
-    height: 40px;
-    font-size:35px;
-    border-color: black;
-    border
-
+#transcript {
+	height: 300px;
+	overflow: auto;
+	background: white;
+	padding: 5px;
+	
+	border: 1px solid black;
 }
