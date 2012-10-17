@@ -2,7 +2,7 @@
 var Transcript = Class.extend({
 	
 	init: function() {
-		this.drinkWords = ["Murderball", "Affordable", "Abortion", "Opponent", "Economy", "Wall Street","Iran","Iraq","Nuclear","Social Security","Ronald Reagan","Bin Laden","Al Queda","Health Care","Massachusetts","Main Street","Katrina","Gasoline","Community Organizer","SuperPAC","Afghanistan","Debt","Deficit","Values","Government","Taxes","Future","Bipartisan","Budget","Immigration","Energy","Dream Act","Outsource","Spending","States","Caymans","Allies","Natural","Clean","Governor","Insurance","Medicare","Florida","Texas","Ohio","Pennsylvania","Middle","Loophole","Seniors","Trillion","ObamaCare","RomneyCare","Promise","Military","Aid","Jobs","Big Bird","PBS","Biden","Ryan"];
+		this.drinkWords = ["Murderball", "Affordable", "Abortion", "Opponent", "Economy", "Wall Street","Iran","Iraq","Nuclear","Social Security","Ronald Reagan","Bin Laden","Al Queda","Health Care","Massachusetts","Main Street","Katrina","Gasoline","Community Organizer","SuperPAC","Afghanistan","Debt","Deficit","Values","Government","Taxes","Future","Bipartisan","Budget","Immigration","Green Energy","Dream Act","Outsource","Spending","States","Caymans","Allies","Natural","Clean","Insurance","Medicare","Florida","Texas","Ohio","Pennsylvania","Middle","Loophole","Seniors","Trillion","ObamaCare","RomneyCare","Promise","Military","Aid","Jobs","Big Bird","PBS","Biden","Ryan"];
 		this.tweakedWords = [];
 		this.drinkCounts = [];
 		this.drinkTotal = 0;
@@ -22,6 +22,9 @@ var Transcript = Class.extend({
 		// Activate drink button
 		$("#drink_command").click(function() {
 			TRANSCRIPT.drink();
+		});
+		$("#sober_command").click(function() {
+			TRANSCRIPT.sober();
 		});
 	},
 	
@@ -52,6 +55,13 @@ var Transcript = Class.extend({
 		
 		$("#drink_stats").append(" (<strong>" + this.drinkTotal + "</strong> drinks had by all)");
 		
+		$("#drink_stats").append("<br />")
+			.scrollTop($("#drink_stats").prop("scrollHeight"));
+	},
+	
+	sober: function() {
+		this.drinkTotal = 0;
+		$("#drink_stats").append("Everyone sobered up.");
 		$("#drink_stats").append("<br />")
 			.scrollTop($("#drink_stats").prop("scrollHeight"));
 	},
