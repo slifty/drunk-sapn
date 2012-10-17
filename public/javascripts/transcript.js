@@ -2,15 +2,22 @@
 var Transcript = Class.extend({
 	
 	init: function() {
-		this.drinkWords = ["the","Wall Street","Iran","Iraq","Ayn Rand","Nuclear","Social Security","Ronald Reagan","Bin Laden","Al Queda","Health Care","Massachusetts","Main Street","Katrina","Gasoline","Community Organizer","SuperPAC","Afghanistan","Debt","Deficit","Values","Government","Taxes","Future","Bipartisan","Budget","Immigration","Energy","Dream Act","Outsource","Spending","States","Caymans","Allies","Natural","Clean","Governor","Insurance","Medicare","Florida","Texas","Ohio","Pennsylvania","Middle","Loophole","Seniors","Trillion","ObamaCare","RomneyCare","Promise","Military","Aid","Jobs","Big Bird","PBS","Biden","Ryan"];
+		this.drinkWords = ["Wall Street","Iran","Iraq","Ayn Rand","Nuclear","Social Security","Ronald Reagan","Bin Laden","Al Queda","Health Care","Massachusetts","Main Street","Katrina","Gasoline","Community Organizer","SuperPAC","Afghanistan","Debt","Deficit","Values","Government","Taxes","Future","Bipartisan","Budget","Immigration","Energy","Dream Act","Outsource","Spending","States","Caymans","Allies","Natural","Clean","Governor","Insurance","Medicare","Florida","Texas","Ohio","Pennsylvania","Middle","Loophole","Seniors","Trillion","ObamaCare","RomneyCare","Promise","Military","Aid","Jobs","Big Bird","PBS","Biden","Ryan"];
 		this.tweakedWords = [];
 		this.drinkCounts = [];
 		this.drinkTotal = 0;
 		this.previousWord = "";
+
+		$("#drink_words").append("<strong>Drink Words:</strong>");		
 		
 		for(var x in this.drinkWords){
 			this.tweakedWords[x] = this.drinkWords[x].toLowerCase();
+			if(x > 0)
+				$("#drink_words").append(",");	
+			$("#drink_words").append(" <em>" + this.drinkWords[x] + "</em>");	
 		}
+		$("#drink_words").append("<br /><br />");	
+		
 		
 		// Activate drink button
 		$("#drink_command").click(function() {
